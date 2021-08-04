@@ -11,10 +11,11 @@ public class TankFrame extends Frame {
 
     Tank myTank=new Tank(200,200,Dir.DOWN);
     Bullet b = new Bullet(200,200,Dir.DOWN);
+    static final int GAME_WIDTH = 800,GAME_HEIGHT=600;
 
     public TankFrame() throws HeadlessException {
 
-        setSize(800,600);
+        setSize(GAME_WIDTH,GAME_HEIGHT);
         setResizable(false);
         setTitle("Main war");
         setVisible(true);
@@ -28,6 +29,22 @@ public class TankFrame extends Frame {
                 System.exit(0);
             }
         });
+    }
+
+    Image offScreenImage = null;
+
+    @Override
+    public void update(Graphics g) {
+        if(offScreenImage==null){
+            offScreenImage = this.createImage(GAME_WIDTH,GAME_WIDTH);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage,0,0,null);
     }
 
     @Override
