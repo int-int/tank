@@ -8,7 +8,7 @@ public class Tank {
 
     private Dir dir=Dir.DOWN;
 
-    private static final int SPEED=10;
+    private static final int SPEED = 5;
 
     private boolean moving=false;
 
