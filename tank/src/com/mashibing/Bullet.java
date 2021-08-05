@@ -18,10 +18,21 @@ public class Bullet {
 
     TankFrame tf=null;
 
-    public Bullet(int x, int y, Dir dir,TankFrame tf) {
+    private Group group = Group.BAD;
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group=group;
         this.tf=tf;
     }
 
@@ -67,6 +78,9 @@ public class Bullet {
     }
 
     public void collideWith(Tank tank) {
+        if(this.group==tank.getGroup()){
+            return;
+        }
         Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGH);
         Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), tank.WIDTH, tank.HEIGH);
         if(rect1.intersects(rect2)){
