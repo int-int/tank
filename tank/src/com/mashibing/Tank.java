@@ -10,6 +10,10 @@ public class Tank {
 
     private static final int SPEED = 5;
 
+    public static int WIDTH=ResourceMgr.tankD.getWidth();
+
+    public static int HEIGH=ResourceMgr.tankD.getHeight();
+
     private boolean moving=false;
 
     private TankFrame tf = null;
@@ -62,7 +66,6 @@ public class Tank {
         if(!moving){
             return;
         }
-
         switch (dir) {
             case LIFT:
                 x-=SPEED;
@@ -80,5 +83,7 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullets.add(new Bullet(this.x, this.y, this.dir,this.tf));    }
+        int bx = this.x +Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int by = this.y +Tank.HEIGH/2 - Bullet.HEIGH/2;
+        tf.bullets.add(new Bullet(bx, by, this.dir,this.tf));    }
 }

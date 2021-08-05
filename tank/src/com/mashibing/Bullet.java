@@ -8,7 +8,9 @@ public class Bullet {
 
     private int x,y;
 
-    private int WIDTH=30, HEIGH=30;
+    public static int WIDTH=ResourceMgr.bulletD.getWidth();
+
+    public static int HEIGH=ResourceMgr.bulletD.getHeight();
 
     private Dir dir;
 
