@@ -9,7 +9,7 @@ public class Tank {
 
     private Dir dir=Dir.DOWN;
 
-    private static final int SPEED = 1;
+    private static final int SPEED = 5;
 
     public static int WIDTH=ResourceMgr.tankU.getWidth();
 
@@ -115,9 +115,16 @@ public class Tank {
                 break;
         }
 
-        if(random.nextInt(10)>8){
+        if(this.group==Group.BAD && random.nextInt(100)>95){
             this.fire();
         }
+        if(this.group==Group.BAD&& random.nextInt(100)> 95){
+            randomDir();
+        }
+    }
+
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
     public void fire() {
