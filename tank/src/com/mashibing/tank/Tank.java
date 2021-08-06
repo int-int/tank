@@ -9,7 +9,7 @@ public class Tank {
 
     private Dir dir=Dir.DOWN;
 
-    private static final int SPEED = 5;
+    private static final int SPEED = 10;
 
     public static int WIDTH=ResourceMgr.goodTankU.getWidth();
 
@@ -25,12 +25,18 @@ public class Tank {
 
     private Group group = Group.BAD;
 
+    Rectangle rect = new Rectangle();
+
     public Tank(int x, int y, Dir dir,Group group,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group=group;
         this.tf=tf;
+        rect.x=this.x;
+        rect.y=this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGH;
     }
 
     public Dir getDir() {
@@ -114,12 +120,29 @@ public class Tank {
                 y+=SPEED;
                 break;
         }
-
         if(this.group==Group.BAD && random.nextInt(100)>95){
             this.fire();
         }
         if(this.group==Group.BAD&& random.nextInt(100)> 95){
             randomDir();
+        }
+        boundsCheck();
+        rect.x=this.x;
+        rect.y=this.y;
+    }
+
+    private void boundsCheck() {
+        if(this.x < 2){
+            x = 2;
+        }
+        if(this.y<28){
+            y=28;
+        }
+        if(this.x > TankFrame.GAME_WIDTH-Tank.WIDTH-2){
+            x=TankFrame.GAME_WIDTH-Tank.WIDTH-2;
+        }
+        if(this.y > TankFrame.GAME_HEIGHT-Tank.HEIGH-2){
+            y=TankFrame.GAME_HEIGHT-Tank.HEIGH-2;
         }
     }
 

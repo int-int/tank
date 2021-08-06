@@ -20,6 +20,8 @@ public class Bullet {
 
     private Group group = Group.BAD;
 
+    Rectangle rect = new Rectangle();
+
     public Group getGroup() {
         return group;
     }
@@ -34,6 +36,11 @@ public class Bullet {
         this.dir = dir;
         this.group=group;
         this.tf=tf;
+        rect.x=this.x;
+        rect.y=this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGH;
+
     }
 
     public void paint(Graphics g){
@@ -72,6 +79,10 @@ public class Bullet {
                 y+=SPEED;
                 break;
         }
+        //update rect
+        rect.x=this.x;
+        rect.y=this.y;
+
         if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT ){
             living =false;
         }
@@ -81,9 +92,7 @@ public class Bullet {
         if(this.group==tank.getGroup()){
             return;
         }
-        Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGH);
-        Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), tank.WIDTH, tank.HEIGH);
-        if(rect1.intersects(rect2)){
+        if(rect.intersects(tank.rect)){
             int eX = tank.getX() +Tank.WIDTH/2 - Explode.WIDTH/2;
             int eY = tank.getY() +Tank.HEIGH/2 - Explode.HEIGH/2;
             tf.explodes.add(new Explode(eX,eY,tf));
