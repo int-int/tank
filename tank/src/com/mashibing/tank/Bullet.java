@@ -84,7 +84,9 @@ public class Bullet {
         Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGH);
         Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), tank.WIDTH, tank.HEIGH);
         if(rect1.intersects(rect2)){
-            tf.explodes.add(new Explode(x,y,tf));
+            int eX = tank.getX() +Tank.WIDTH/2 - Explode.WIDTH/2;
+            int eY = tank.getY() +Tank.HEIGH/2 - Explode.HEIGH/2;
+            tf.explodes.add(new Explode(eX,eY,tf));
             tank.die();
             this.die();
 
