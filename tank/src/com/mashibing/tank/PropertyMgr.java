@@ -14,15 +14,21 @@ public class PropertyMgr {
         }
     }
 
-    public static String get(String key){
+    public static String getString(String key){
         if(props==null){
             return null;
         }
         return props.getProperty(key);
     }
+    public static Integer getInt(String key){
+        if(props==null){
+            return null;
+        }
+        return Integer.parseInt(props.getProperty(key));
+    }
 
     public static void main(String[] args) {
-        System.out.println(PropertyMgr.get("initTankCount"));
+        System.out.println(PropertyMgr.getString("initTankCount"));
     }
 
 }

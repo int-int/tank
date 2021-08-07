@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Bullet {
 
-    private static final int SPEED = 20;
+    private static final int SPEED = PropertyMgr.getInt("bulletSpeed");;
 
     private int x,y;
 
