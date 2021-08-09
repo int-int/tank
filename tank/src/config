@@ -6,3 +6,6 @@ myTankInitX=200
 myTankInitY=400
 tankSpeed=10
 bulletSpeed=20
+#fireStrategy
+goodFS=com.mashibing.tank.FourDirFireStrategy
+badFS=com.mashibing.tank.DefaultFireStrategy

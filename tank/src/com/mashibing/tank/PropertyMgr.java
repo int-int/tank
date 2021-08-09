@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PropertyMgr {
+
+    private PropertyMgr() {
+    }
+
     static Properties props = new Properties();
 
     static {

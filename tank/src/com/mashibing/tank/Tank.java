@@ -5,9 +5,9 @@ import java.util.Random;
 
 public class Tank {
 
-    private int x,y;
+    int x,y;
 
-    private Dir dir=Dir.DOWN;
+    Dir dir=Dir.DOWN;
 
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
 
@@ -19,13 +19,15 @@ public class Tank {
 
     private boolean moving=true;
 
-    private TankFrame tf = null;
+    TankFrame tf = null;
 
     private boolean living = true;
 
-    private Group group = Group.BAD;
+    Group group = Group.BAD;
 
     Rectangle rect = new Rectangle();
+
+    FireStrategy fs;
 
     public Tank(int x, int y, Dir dir,Group group,TankFrame tf) {
         this.x = x;
@@ -37,6 +39,21 @@ public class Tank {
         rect.y=this.y;
         rect.width = WIDTH;
         rect.height = HEIGH;
+        String fsName;
+        if(this.group==Group.GOOD){
+            fsName = PropertyMgr.getString("goodFS");
+        }else{
+            fsName = PropertyMgr.getString("badFS");
+        }
+        try {
+            fs=(FireStrategy)Class.forName(fsName).newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public Dir getDir() {
@@ -151,10 +168,7 @@ public class Tank {
     }
 
     public void fire() {
-        int bx = this.x +Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int by = this.y +Tank.HEIGH/2 - Bullet.HEIGH/2;
-        tf.bullets.add(new Bullet(bx, by, this.dir,this.group,this.tf));
-        //new Thread(()-> new Audio("audio/tank_fire.wav").play()).start();
+        fs.fire(this);
     }
 
     public void die() {

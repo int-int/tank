@@ -22,7 +22,7 @@ public class TankFrame extends Frame {
 
         setSize(GAME_WIDTH,GAME_HEIGHT);
         setResizable(false);
-        setTitle("Main war");
+        setTitle("坦克大战");
         setVisible(true);
 
         this.addKeyListener(new MyKeyListener());
