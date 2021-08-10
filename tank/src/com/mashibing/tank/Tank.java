@@ -1,13 +1,17 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.strategy.FireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObject{
 
-    int x,y;
+    public int x,y;
 
-    Dir dir=Dir.DOWN;
+    public int oldX,oldY;
+
+    public Dir dir=Dir.DOWN;
 
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
 
@@ -21,13 +25,13 @@ public class Tank {
 
     private boolean living = true;
 
-    Group group = Group.BAD;
+    public Group group = Group.BAD;
 
     Rectangle rect = new Rectangle();
 
     FireStrategy fs;
 
-    GameModel gm;
+    public GameModel gm;
 
     public Tank(int x, int y, Dir dir,Group group,GameModel gm) {
         this.x = x;
@@ -54,6 +58,14 @@ public class Tank {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
     }
 
     public Dir getDir() {
@@ -96,9 +108,10 @@ public class Tank {
         this.group = group;
     }
 
+    @Override
     public void paint(Graphics g) {
         if(!living){
-            gm.tanks.remove(this);
+            gm.remove(this);
         }
         switch (dir) {
             case LIFT:
@@ -120,6 +133,8 @@ public class Tank {
     }
 
     private void move() {
+        oldX=x;
+        oldY=y;
         if(!moving){
             return;
         }
@@ -173,5 +188,10 @@ public class Tank {
 
     public void die() {
         this.living=false;
+    }
+
+    public void stop(){
+        this.x=oldX;
+        this.y=oldY;
     }
 }

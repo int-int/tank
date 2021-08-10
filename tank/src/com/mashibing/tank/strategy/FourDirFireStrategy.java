@@ -1,6 +1,8 @@
-package com.mashibing.tank;
+package com.mashibing.tank.strategy;
 
-public class FourDirFireStrategy implements FireStrategy{
+import com.mashibing.tank.*;
+
+public class FourDirFireStrategy implements FireStrategy {
     @Override
     public void fire(Tank t) {
         int bx = t.x +Tank.WIDTH/2 - Bullet.WIDTH/2;
@@ -12,7 +14,7 @@ public class FourDirFireStrategy implements FireStrategy{
         }
 
 
-        if(t.group==Group.GOOD){
+        if(t.group== Group.GOOD){
             new Thread(()-> new Audio("audio/tank_fire.wav").play()).start();
         }
 

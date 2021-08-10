@@ -2,7 +2,7 @@ package com.mashibing.tank;
 
 import java.awt.*;
 
-public class Bullet {
+public class Bullet extends GameObject{
 
     private static final int SPEED = PropertyMgr.getInt("bulletSpeed");;
 
@@ -18,7 +18,7 @@ public class Bullet {
 
     GameModel gm=null;
 
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
 
     Rectangle rect = new Rectangle();
 
@@ -28,6 +28,14 @@ public class Bullet {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
     }
 
     public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
@@ -40,13 +48,14 @@ public class Bullet {
         rect.y=this.y;
         rect.width = WIDTH;
         rect.height = HEIGH;
-        gm.bullets.add(this);
+        gm.add(this);
 
     }
 
+    @Override
     public void paint(Graphics g){
         if(!living){
-            gm.bullets.remove(this);
+            gm.remove(this);
         }
         switch (dir) {
             case LIFT:
@@ -89,23 +98,7 @@ public class Bullet {
         }
     }
 
-    public void collideWith(Tank tank) {
-        if(this.group==tank.getGroup()){
-            return;
-        }
-        if(rect.intersects(tank.rect)){
-            int eX = tank.getX() +Tank.WIDTH/2 - Explode.WIDTH/2;
-            int eY = tank.getY() +Tank.HEIGH/2 - Explode.HEIGH/2;
-            gm.explodes.add(new Explode(eX,eY,gm));
-            tank.die();
-            this.die();
-
-
-        }
-
-    }
-
-    private void die() {
+    public void die() {
         this.living=false;
     }
 }
